@@ -1,0 +1,4 @@
+# ecom-config-repo/application.yml
+server:
+  test:
+    message: "Bhai, Config Server chal gaya! Party!"
