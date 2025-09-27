@@ -1,0 +1,24 @@
+spring.application.name=user-service
+spring.cloud.config.uri=http://localhost:8888```
+server:
+  port: 8081
+
+  spring:
+  # Database ki settings
+  datasource:
+    url: jdbc:mysql://localhost:3306/ecom_user_db?createDatabaseIfNotExist=true
+    username: root # Apna MySQL username daalna
+    password: root # Apna MySQL password daalna
+    driver-class-name: com.mysql.cj.jdbc.Driver
+  # JPA ki settings
+  jpa:
+    hibernate:
+      ddl-auto: update # Yeh table automatically bana/update kar dega
+    show-sql: true # Console pe SQL queries dikhayega, debugging ke liye acha hai
+
+    eureka:
+  instance:
+    hostname: localhost
+  client:
+    service-url:
+      defaultZone: http://localhost:8761/eureka```
