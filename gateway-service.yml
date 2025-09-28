@@ -1,0 +1,36 @@
+server:
+  port: 8080 # <-- Hamare mall ka main gate. Saari public yahan aayegi.
+
+spring:
+  application:
+    name: gateway-service
+  cloud:
+    gateway:
+      discovery:
+        locator:
+          enabled: true # Gateway ko Eureka se services dhoondhne ke liye enable karo
+      routes:
+        # User Service ka rule
+        - id: user-service-route # Is rule ka ek unique naam
+          uri: lb://user-service # 'lb' ka matlab hai Load Balancer. Eureka se 'user-service' ka address dhoondh ke wahan bhej do.
+          predicates:
+            - Path=/api/users/** # Agar URL /api/users/ se shuru ho, toh upar waale address pe bhej do.
+
+        # Product Service ka rule
+        - id: product-service-route
+          uri: lb://product-service
+          predicates:
+            - Path=/api/products/**
+
+        # Order Service ka rule
+        - id: order-service-route
+          uri: lb://order-service
+          predicates:
+            - Path=/api/orders/**
+
+eureka:
+  instance:
+    hostname: localhost
+  client:
+    service-url:
+      defaultZone: http://localhost:8761/eureka/
